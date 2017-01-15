@@ -18,7 +18,7 @@ import java.sql.Statement;
  */
 public class DBManager {
 	private Connection db;
-	 Database.getInstance().getConnection();
+
 	private String url;
 	private String username;
 	private String password;
@@ -29,12 +29,9 @@ public class DBManager {
 	    username = user;
 	    password = pass;
 
-        try {
+    //wywo³anie singletona - klasa kliencka
             db =Database.getInstance().getConnection();;
-        } catch (SQLException e) {
-        	System.err.println(e);
-            e.printStackTrace();
-        }
+     
         
         System.out.println("Dokonano po³aczenia z baz¹ danych");
 	}
