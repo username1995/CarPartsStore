@@ -149,7 +149,7 @@ public class DBManager {
 	   ResultSet rs = null;
 
 	  try{
-	   ps=db.prepareStatement("UPDATE CREDENTIAL SET DATE= '"+data+"' WHERE PESEL='"+PESEL+"'");
+	   ps=db.prepareStatement("'");
 	  ps.executeUpdate();
 	  return true;
 	  }
@@ -211,7 +211,7 @@ public class DBManager {
            if (username != null && password != null && username.length() <= 100) {
         	   
     
-               ps = db.prepareStatement("INSERT INTO CREDENTIAL (PESEL, PASSWORD,NAME,SURNAME,MAIL) VALUES (?,?,?,?,?)");
+               ps = db.prepareStatement("");
                ps.setString(1,username);
                ps.setString(2,password);
                ps.setString(3,name);
