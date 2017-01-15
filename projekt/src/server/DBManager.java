@@ -93,7 +93,25 @@ public class DBManager {
    /** 
     * Wydobywa dane z bazy danych
     * @return String dane wyciagniete z bazy danych w postac zakodowanej wiadomosci    */
- public String getDataFrom(String PESEL, String password)
+
+   
+   
+   public String getData(){
+   
+   PreparedStatement ps = null;
+   ResultSet rs =null;;
+   String data = "";  
+   
+   //tutaj wyciaganie danych z bazy
+   
+   
+   //i zapisywanie tak jak u dolu
+   
+   //zwracane
+   //return data;
+   
+}
+   public String getDataFrom(String PESEL, String password)
  {
 	 PreparedStatement ps = null;
      ResultSet rs =null;
