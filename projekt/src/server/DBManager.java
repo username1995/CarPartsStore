@@ -18,6 +18,7 @@ import java.sql.Statement;
  */
 public class DBManager {
 	private Connection db;
+	 Database.getInstance().getConnection();
 	private String url;
 	private String username;
 	private String password;
@@ -29,7 +30,7 @@ public class DBManager {
 	    password = pass;
 
         try {
-            db = DriverManager.getConnection(url, username, password);
+            db =Database.getInstance().getConnection();;
         } catch (SQLException e) {
         	System.err.println(e);
             e.printStackTrace();
