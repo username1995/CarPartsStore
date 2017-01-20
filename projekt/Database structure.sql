@@ -16,78 +16,71 @@
 CREATE DATABASE IF NOT EXISTS `sklep` /*!40100 DEFAULT CHARACTER SET utf32 COLLATE utf32_polish_ci */;
 USE `sklep`;
 
--- Zrzut struktury tabela sklep.admin
-CREATE TABLE IF NOT EXISTS `admin` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `imie` varchar(50) DEFAULT NULL,
-  `nazwisko` varchar(50) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- Data exporting was unselected.
 -- Zrzut struktury tabela sklep.czesc
 CREATE TABLE IF NOT EXISTS `czesc` (
   `id` int(11) NOT NULL,
-  `kategoria` int(11) DEFAULT NULL,
   `nazwa` varchar(50) DEFAULT NULL,
   `cena` varchar(50) DEFAULT NULL,
+  `ilosc` varchar(50) DEFAULT NULL,
   `opis` varchar(50) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `kategoria` (`kategoria`),
-  CONSTRAINT `FK__kategoria` FOREIGN KEY (`kategoria`) REFERENCES `kategoria` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- Data exporting was unselected.
--- Zrzut struktury tabela sklep.kategoria
-CREATE TABLE IF NOT EXISTS `kategoria` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `nazwa` char(50) CHARACTER SET utf32 COLLATE utf32_polish_ci NOT NULL,
-  `model` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `model` (`model`),
-  CONSTRAINT `FK_kategoria_model` FOREIGN KEY (`model`) REFERENCES `model` (`id`)
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- Data exporting was unselected.
 -- Zrzut struktury tabela sklep.klient
 CREATE TABLE IF NOT EXISTS `klient` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `imie` varchar(50) DEFAULT NULL,
-  `nazwisko` varchar(50) DEFAULT NULL,
-  `zakup` int(11),
-  `ulica` varchar(50) DEFAULT NULL,
-  `miejscowosc` varchar(50) DEFAULT NULL,
+  `login` varchar(50) NOT NULL,
+  `haslo` varchar(50) NOT NULL,
+  `imie` varchar(50) NOT NULL,
+  `nazwisko` varchar(50) NOT NULL,
+  `email` varchar(50) NOT NULL,
+  `miejscowosc` varchar(50) NOT NULL,
+  `ulica` varchar(50) NOT NULL,
+  `nr mieszakania` varchar(50) NOT NULL,
+  `telefon` varchar(50) NOT NULL,
+  `zamowienie` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `zakup` (`zakup`),
-  CONSTRAINT `FK_klient_zakup` FOREIGN KEY (`zakup`) REFERENCES `zakup` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  KEY `zamowienie` (`zamowienie`),
+  CONSTRAINT `FK_klient_zamowienie` FOREIGN KEY (`zamowienie`) REFERENCES `zamowienie` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 -- Data exporting was unselected.
--- Zrzut struktury tabela sklep.marka
-CREATE TABLE IF NOT EXISTS `marka` (
-  `id` int(11) NOT NULL,
-  `nazwa` varchar(50) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- Data exporting was unselected.
--- Zrzut struktury tabela sklep.model
-CREATE TABLE IF NOT EXISTS `model` (
-  `id` int(2) NOT NULL,
-  `marka` int(2) NOT NULL,
-  `nazwa` varchar(50) NOT NULL,
+-- Zrzut struktury tabela sklep.platnosc
+CREATE TABLE IF NOT EXISTS `platnosc` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `typ` int(11) DEFAULT NULL,
+  `klient` int(11) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
-  KEY `model` (`marka`),
-  CONSTRAINT `FK_model_marka` FOREIGN KEY (`marka`) REFERENCES `marka` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  KEY `klient` (`klient`),
+  CONSTRAINT `FK_platnosc_klient` FOREIGN KEY (`klient`) REFERENCES `klient` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf32 COLLATE=utf32_polish_ci;
 
 -- Data exporting was unselected.
--- Zrzut struktury tabela sklep.zakup
-CREATE TABLE IF NOT EXISTS `zakup` (
+-- Zrzut struktury tabela sklep.transakcja
+CREATE TABLE IF NOT EXISTS `transakcja` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `data` varchar(50) CHARACTER SET latin1 NOT NULL,
+  `wartosc` float NOT NULL,
+  `miejscowosc` varchar(50) COLLATE utf32_polish_ci NOT NULL,
+  `ulica` varchar(50) COLLATE utf32_polish_ci NOT NULL,
+  `nr mieszkania` varchar(50) COLLATE utf32_polish_ci DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `miejscowosc` (`miejscowosc`),
+  KEY `ulica` (`ulica`),
+  KEY `nr mieszkania` (`nr mieszkania`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf32 COLLATE=utf32_polish_ci;
+
+-- Data exporting was unselected.
+-- Zrzut struktury tabela sklep.zamowienie
+CREATE TABLE IF NOT EXISTS `zamowienie` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `klient` int(11) NOT NULL,
   `akceptacja` int(11) NOT NULL,
   `czesc` int(11) NOT NULL,
+  `data` int(11) DEFAULT NULL,
+  `wartosc` int(11) DEFAULT NULL,
+  `platnosc` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `czesc` (`czesc`),
   KEY `klient` (`klient`),

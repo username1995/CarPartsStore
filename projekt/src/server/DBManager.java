@@ -59,13 +59,13 @@ public class DBManager {
                password = "";
            }
  
-           ps = db.prepareStatement("SELECT PASSWORD FROM CREDENTIAL WHERE PESEL = ?");
+           ps = db.prepareStatement("SELECT HASLO FROM SKLEP.KLIENT WHERE LOGIN = ?");
            ps.setString(1, username);
            rs = ps.executeQuery();
           
 		  String digest;
            if (rs.next()) {
-               digest = rs.getString("PASSWORD");
+               digest = rs.getString("HASLO");
              
                // DATABASE VALIDATION
                if (digest == "") {

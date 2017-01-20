@@ -29,7 +29,7 @@ public class Database {
         if(con==null){
             try {
                 String host = "jdbc:mysql://localhost:3306/sklep";
-                String username = "hr";
+                String username = "root";
                 String password = "";
                 con = DriverManager.getConnection( host, username, password );
             } catch (SQLException ex) {

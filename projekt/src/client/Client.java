@@ -133,6 +133,8 @@ public boolean update(String data,String login)
             
             inputBuffer = new BufferedReader(new InputStreamReader(server.getInputStream()));
             outputWriter = new PrintWriter(server.getOutputStream());
+            System.out.println("Polaczono z serwerem");
+            
         } catch (IOException e) {
             System.err.println(e);
             e.printStackTrace();

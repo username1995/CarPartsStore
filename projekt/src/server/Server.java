@@ -137,18 +137,8 @@ h.    */
 		do {
 			clientMsg = client.read();
 			
-				if (clientMsg.equals("QUIT")) {
-					System.out.println("Klient sie rozlaczyl");
-					client.disconnect();
-					return;
-			}
-				else if (clientMsg.startsWith("SHOW: ")) 
-				createUser(clientMsg);
 			
-					else if (clientMsg.startsWith("NEWUSER: ")) {
-				createUser(clientMsg);
-			}
-			else if (clientMsg.startsWith("LOGIN: ")) {
+			if (clientMsg.startsWith("LOGIN: ")) {
 				accepted = authenticate(clientMsg);
 			}
 			
@@ -159,34 +149,7 @@ h.    */
 				return;
 			}
 		} while(!accepted);
-		//accepted rownoznaczne z tym ze zalogowano
-
-	boolean check=false;
-		while(!check)
-{
-			clientMsg = client.read();
-
-if (clientMsg.startsWith("RETRIEVE ")) {
-	this.retrieveData(clientMsg);
-	check =true;
-}
-}
-do {
-		clientMsg = client.read();
-			
-			if (clientMsg.startsWith("exit")) {disconnect();return;}
-	//	if (clientMsg.startsWith("SEND ")) {send(clientMsg);}
-	
-		else if(clientMsg.startsWith("U")) update(clientMsg);
-	
-		else
-		{
-			System.out.println("Nieoczekiwana wiadomosc od klienta " + clientMsg);
-			client.disconnect();
-			return;
-		}
-		  
-	} while(true);
+		
 
 	}
 	
@@ -227,7 +190,7 @@ do {
 
 			
 	
-				client.write(db.getDataFrom(username, password));
+			//	client.write(db.getDataFrom(username, password));
 
 	}
 	
