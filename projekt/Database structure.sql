@@ -35,9 +35,9 @@ CREATE TABLE IF NOT EXISTS `klient` (
   `imie` varchar(50) NOT NULL,
   `nazwisko` varchar(50) NOT NULL,
   `email` varchar(50) NOT NULL,
-  `miejscowosc` varchar(50) NOT NULL,
-  `ulica` varchar(50) NOT NULL,
-  `nr mieszakania` varchar(50) NOT NULL,
+  `miejscowosc` varchar(50) DEFAULT NULL,
+  `ulica` varchar(50) DEFAULT NULL,
+  `nr mieszakania` varchar(50) DEFAULT NULL,
   `telefon` varchar(50) NOT NULL,
   `zamowienie` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -46,46 +46,27 @@ CREATE TABLE IF NOT EXISTS `klient` (
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 -- Data exporting was unselected.
--- Zrzut struktury tabela sklep.platnosc
-CREATE TABLE IF NOT EXISTS `platnosc` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `typ` int(11) DEFAULT NULL,
-  `klient` int(11) NOT NULL DEFAULT '1',
-  PRIMARY KEY (`id`),
-  KEY `klient` (`klient`),
-  CONSTRAINT `FK_platnosc_klient` FOREIGN KEY (`klient`) REFERENCES `klient` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf32 COLLATE=utf32_polish_ci;
-
--- Data exporting was unselected.
--- Zrzut struktury tabela sklep.transakcja
-CREATE TABLE IF NOT EXISTS `transakcja` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `data` varchar(50) CHARACTER SET latin1 NOT NULL,
-  `wartosc` float NOT NULL,
-  `miejscowosc` varchar(50) COLLATE utf32_polish_ci NOT NULL,
-  `ulica` varchar(50) COLLATE utf32_polish_ci NOT NULL,
-  `nr mieszkania` varchar(50) COLLATE utf32_polish_ci DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `miejscowosc` (`miejscowosc`),
-  KEY `ulica` (`ulica`),
-  KEY `nr mieszkania` (`nr mieszkania`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf32 COLLATE=utf32_polish_ci;
-
--- Data exporting was unselected.
 -- Zrzut struktury tabela sklep.zamowienie
 CREATE TABLE IF NOT EXISTS `zamowienie` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `klient` int(11) NOT NULL,
-  `akceptacja` int(11) NOT NULL,
-  `czesc` int(11) NOT NULL,
-  `data` int(11) DEFAULT NULL,
-  `wartosc` int(11) DEFAULT NULL,
-  `platnosc` int(11) DEFAULT NULL,
+  `akceptacja` varchar(50) DEFAULT 'niepotwierdzone',
+  `czesc1` int(11) NOT NULL DEFAULT '0',
+  `ilosc1` int(11) NOT NULL DEFAULT '0',
+  `czesc2` int(11) DEFAULT '0',
+  `ilosc2` int(11) DEFAULT '0',
+  `czesc3` int(11) DEFAULT '0',
+  `ilosc3` int(11) DEFAULT '0',
+  `wartosc` float DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `czesc` (`czesc`),
   KEY `klient` (`klient`),
-  CONSTRAINT `FK_zakup_czesc` FOREIGN KEY (`czesc`) REFERENCES `czesc` (`id`),
-  CONSTRAINT `FK_zakup_klient` FOREIGN KEY (`klient`) REFERENCES `klient` (`id`)
+  KEY `FK_zamowienie_czesc` (`czesc1`),
+  KEY `FK_zamowienie_czesc_2` (`czesc2`),
+  KEY `FK_zamowienie_czesc_3` (`czesc3`),
+  CONSTRAINT `FK_zakup_klient` FOREIGN KEY (`klient`) REFERENCES `klient` (`id`),
+  CONSTRAINT `FK_zamowienie_czesc` FOREIGN KEY (`czesc1`) REFERENCES `czesc` (`id`),
+  CONSTRAINT `FK_zamowienie_czesc_2` FOREIGN KEY (`czesc2`) REFERENCES `czesc` (`id`),
+  CONSTRAINT `FK_zamowienie_czesc_3` FOREIGN KEY (`czesc3`) REFERENCES `czesc` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- Data exporting was unselected.

@@ -24,28 +24,12 @@ public class DBManager {
 	private String password;
 	
 	
-	public DBManager(String host, String user, String pass) {
-		url = host;
-	    username = user;
-	    password = pass;
-
-    //wywo³anie singletona - klasa kliencka
-            db =Database.getInstance().getConnection();;
-     
-        
-        System.out.println("Dokonano po³aczenia z baz¹ danych");
+	public DBManager(){
+		
+    db =Database.getInstance().getConnection();;
+     System.out.println("Dokonano po³aczenia z baz¹ danych");
 	}
 
-   /** 
-    * Probuje zalogowac uzytkownika w bazie danych
-    * 
-    *
-    * @param Stringusername String proponowany PESEL
-    * @param Stringpassword proponowane haslo
-    * @return boolean true jesli zalogowano, false w przeciwnym razie
-    * @throws SQLException jesli jest jakis problem po stronie SQL-a
-    * 
-    */
    public boolean authenticate(String username, String password) throws SQLException, NoSuchAlgorithmException
    {
        PreparedStatement ps = null;
@@ -88,6 +72,132 @@ public class DBManager {
            close(ps);
        }
    }
+   
+   
+   public boolean userExists(String username) {
+	   boolean exists = false;
+	   
+	   PreparedStatement ps = null;
+	   ResultSet rs = null;
+	   
+	   try {
+	       ps = db.prepareStatement("SELECT 1 FROM CREDENTIAL WHERE PESEL='" + username + "' LIMIT 1");
+	       rs = ps.executeQuery();
+	       if (rs.next()) exists = true;
+	   } catch (SQLException e) {
+		   System.err.println(e);
+		   e.printStackTrace();
+	   }
+	   
+	   return exists;
+   }
+   
+ 
+  
+ 
+   
+   public boolean createUser(String username, String password,String name,String surname, String mail) throws SQLException, NoSuchAlgorithmException
+   {	   
+       PreparedStatement ps = null;
+       try {
+           if (username != null && password != null && username.length() <= 100) {
+        	   
+    
+               ps = db.prepareStatement("");
+               ps.setString(1,username);
+               ps.setString(2,password);
+               ps.setString(3,name);
+			   ps.setString(4,surname);
+			   ps.setString(5,mail);
+               ps.executeUpdate();
+               return true;
+           } else {
+               return false;
+           }
+       } finally {
+           close(ps);
+       }
+   }
+
+
+   public void close(Statement ps) {
+       if (ps!=null){
+           try {
+               ps.close();
+           } catch (SQLException ignore) {
+           }
+       }
+   }
+ 
+  /**
+    * Zamyka polaczenie JDBC typu Statement
+    * 
+    *
+    */
+   public void close(ResultSet rs) {
+       if (rs!=null){
+           try {
+               rs.close();
+           } catch (SQLException ignore) {
+           }
+       }
+   }
+
+   
+   ///////////////////////////////////////////////////////////////////////////////////////////////////
+   /*
+   
+   
+   
+   CRUD
+   
+   dla klienta
+   Create :zamowienie, konto
+   Read:Czesci, zamowienie,konto
+   Update
+   Delete :Zamowienie (jesli zamowienie jeszcze nie zatwierdzone przez admina)
+   
+   
+   
+   
+   dla admina
+   Create czesci- z uzyciem wzorcow
+   Read Czesci
+   Update status zamowienia, czesci
+   Delete czesci
+   
+     */
+   
+   
+
+   public boolean createOrder(String client, String czesc) throws SQLException, NoSuchAlgorithmException
+   {	   
+       PreparedStatement ps = null;
+       try {
+//////////////////////////
+    	   
+    //	   abstrahuje cale jdbc od pojektu
+        	   
+    
+               ps = db.prepareStatement("");
+       
+               ps.setString(2,"dupa");
+               ps.setString(4,"cwela");
+			 
+               ps.executeUpdate();
+               return true;
+          
+       } finally {
+           close(ps);
+       }
+   }
+   
+   
+   
+   
+   
+   
+   
    /** 
     * Wydobywa dane z bazy danych
     * @return String dane wyciagniete z bazy danych w postac zakodowanej wiadomosci    */
@@ -172,83 +282,5 @@ public class DBManager {
     * @param String nazwa uzytkownika (PESEL)
     * @return boolean true jezeli istnieje taki PESEL w bazie, false w przeciwnym wypadku
     */
-   public boolean userExists(String username) {
-	   boolean exists = false;
-	   
-	   PreparedStatement ps = null;
-	   ResultSet rs = null;
-	   
-	   try {
-	       ps = db.prepareStatement("SELECT 1 FROM CREDENTIAL WHERE PESEL='" + username + "' LIMIT 1");
-	       rs = ps.executeQuery();
-	       if (rs.next()) exists = true;
-	   } catch (SQLException e) {
-		   System.err.println(e);
-		   e.printStackTrace();
-	   }
-	   
-	   return exists;
-   }
-   
- 
-   /**
-    * Dodaje uzytkownika do bazy danych
-    * 
-    * @param username String PESEL nowego uzytkownika
-    * @param password String haslo nowego uzytkownika
-    *
-    *@throws SQLException Ijezeli baza danych niedostepna
-    * M
-    */
- 
-   
-   public boolean createUser(String username, String password,String name,String surname, String mail) throws SQLException, NoSuchAlgorithmException
-   {	   
-       PreparedStatement ps = null;
-       try {
-           if (username != null && password != null && username.length() <= 100) {
-        	   
-    
-               ps = db.prepareStatement("");
-               ps.setString(1,username);
-               ps.setString(2,password);
-               ps.setString(3,name);
-			   ps.setString(4,surname);
-			   ps.setString(5,mail);
-               ps.executeUpdate();
-               return true;
-           } else {
-               return false;
-           }
-       } finally {
-           close(ps);
-       }
-   }
-
-/**
-    * Zamyka polaczenie JDBC typu Statement
-    * 
-    */
-   public void close(Statement ps) {
-       if (ps!=null){
-           try {
-               ps.close();
-           } catch (SQLException ignore) {
-           }
-       }
-   }
- 
-   /**
-    * Zamyka polaczenie JDBC typu Statement
-    * 
-    *
-    */
-   public void close(ResultSet rs) {
-       if (rs!=null){
-           try {
-               rs.close();
-           } catch (SQLException ignore) {
-           }
-       }
-   }
+  
 }
