@@ -176,7 +176,7 @@ public class DBManager {
        try {
 //////////////////////////
     	   
-    //	   abstrahuje cale jdbc od pojektu
+    	   abstrahuje cale jdbc
         	   
     
                ps = db.prepareStatement("");
