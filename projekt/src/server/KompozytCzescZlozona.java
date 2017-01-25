@@ -34,6 +34,9 @@ public class KompozytCzescZlozona extends KomponentCzesci {
         System.out.println(getNazwa());
         for (KomponentCzesci component : components) {
             component.wyswietlNazwa();
+            
+            
+          //
         }
     }
     public ArrayList<KomponentCzesci> zwroc() {
