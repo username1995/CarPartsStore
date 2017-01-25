@@ -12,12 +12,23 @@ public class FabrykaCzesci {
 	               return new PrototypCzesc(); 
              }   
 	         else if(typCzesci.equalsIgnoreCase("zlozona")){  
-	        	 return new KompozytCzesc();
+	        	 return new KompozytCzescPodstawowa();
          }   
          
-	      
+	
 	   return null;  
   }  
 
-
+	 public void zbudujKompozycjeObiektow()
+	 {
+		 
+		 
+		 
+		 
+		 
+		 
+		 
+		 
+		 
+	 }
 }
