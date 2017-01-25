@@ -1,5 +1,7 @@
 package server;
 
+import java.util.ArrayList;
+
 public abstract class KomponentCzesci extends Czesc {
 	protected String name; 
 
@@ -9,5 +11,6 @@ public abstract class KomponentCzesci extends Czesc {
 	   public abstract KomponentCzesci getComponent(int index); 
 	   public abstract String getNazwa(); 
 	   public abstract void wyswietlNazwa(); 
+	   public abstract ArrayList<KomponentCzesci> zwroc();
 
 }

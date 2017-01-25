@@ -36,5 +36,8 @@ public class KompozytCzescZlozona extends KomponentCzesci {
             component.wyswietlNazwa();
         }
     }
+    public ArrayList<KomponentCzesci> zwroc() {
+        return components;
+        }
+    }
 
-}

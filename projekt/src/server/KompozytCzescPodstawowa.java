@@ -1,5 +1,7 @@
 package server;
 
+import java.util.ArrayList;
+
 public class KompozytCzescPodstawowa extends KomponentCzesci {
 
 	public KompozytCzescPodstawowa(String name) { 
@@ -37,6 +39,8 @@ public class KompozytCzescPodstawowa extends KomponentCzesci {
 		   public void wyswietlNazwa() { 
 		        System.out.println(name); 
 		    } 
+		   
+		   public ArrayList<KomponentCzesci> zwroc(){return null;}
 	 } 
 
 	
