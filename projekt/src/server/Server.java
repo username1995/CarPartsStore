@@ -159,8 +159,8 @@ h.    */
 	 * @param clientMsg wiadomosc od klienta zawieraj¹ca zakodowane dane niezbêdne do utworzenia konta.
 	 */
 	private synchronized void createUser(String clientMsg) {
-		
-		
+		/////////
+		////// 
 		clientMsg = clientMsg.split(" ")[1];
 	
 	
@@ -246,15 +246,12 @@ private synchronized void disconnect() {
 	 * 
 	 */	
 public synchronized void retrieveData(String clientMsg){
-
-	clientMsg = clientMsg.split(": ")[1];
-	
-    String username = clientMsg.split(",")[0];
-	String password = clientMsg.split(",")[1];
-
-	client.write(db.getDataFrom(username, password));
- 
-
+//wyciaganie danych
+//dla klienta jego konto, czesci do kupienia
+//
+//	client.write(db.getDataFrom(username, password));
+ //
+//
 }
 
 
@@ -264,36 +261,165 @@ public synchronized void retrieveData(String clientMsg){
 	 * 
 	 */
 	 
-/*public synchronized void send(String clientMsg) {
-	
-		System.out.println(clientMsg);
-		
-		clientMsg = clientMsg.split(": ")[1];
-		
-		String name = clientMsg.split(",")[0];
-		String surname = clientMsg.split(",")[1];
-		String mail =clientMsg.split(",")[2];
-		String data = clientMsg.split(",")[3];
-		String password = clientMsg.split(",")[4];
-		String PESEL = clientMsg.split(",")[5];
-		
-		SendMail a = new SendMail();
-		try {
-		    if (a.send(name,surname,mail,data,password,PESEL))   client.write("OK");
-	                else client.write("Wystapil jakis problem z wyslaniem maila");
-	        }
-	catch (MessagingException e) {
 
-			System.err.println(e);
-			e.printStackTrace();
-		}
-}*/
 /**
 	 * Uaktualnia w bazie danych date wybrna przez pacjenta w panelu uzytkownika
 	 * @param wiadomosc od klienta zawieraj¹ca zakodowane dane niezbêdne do uaktualnienia danych
 	 * 
 	 */
 	 
+/*public void generujFakture()
+ *wyciagam dane z bazy
+ * posylam do konstruktora i tak ju¿ dalej w³aja¿ w³aja¿
+ * 
+ * 
+ * 
+ * 
+ * 
+ *pod spodem przykladowy klient
+ * Director szef = new Director();
+Builder builder = new ZestawXT001();
+Builder builder2 = new ZestawABC996();
+System.out.println("\nZESTAW1");
+szef.setBuilder(builder);
+szef.skladaj();
+ZestawKomputerowy zestaw1 = szef.getZestaw();
+szef.setBuilder(builder2);
+szef.skladaj();
+ZestawKomputerowy zestaw2 = szef.getZestaw();
+zestaw1.show();
+System.out.println("\n\nZESTAW2");
+zestaw2.show();
+ * 
+ * 
+ * bede w ponizszej metodzie korzystal z commanda chyba
+ * 
+ * public void zamow()
+ *    aktualizacja w bazie tabeli zamowienie i klient
+ * 
+ * public void dodajCzesci()
+ *   **stworzenie obiektu klasyFabrykaCzesci i tam wybor
+ *  **czy tworzymy caly szkielet
+ * ** czy tylko dodajemy konkretna czesc poprzez sklonowanie
+ *  ** prototyp
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ */
+
+
+
+
+
+
+
+
+
+
 public synchronized boolean update(String clientMsg){
 
 		boolean accepted = false; 
