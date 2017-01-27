@@ -1,8 +1,7 @@
 package client;
 
-public abstract class UI {
-	
-	
+public class ClientUI {
+
 	void przegladajTowary(){
 		//wywolaj poprzed fasade metode pobierajaca dane z bazy
 	}
@@ -10,12 +9,13 @@ public abstract class UI {
 	return true;	//to co powyzej
 	}
 	boolean zalogujSie()
+	{return true;}
 	
 	void zakup(String coKupujesz){
 		//troszke bardziej zaawansowane
-		
 	}
 	
+
 	
 	
 	
@@ -31,8 +31,6 @@ public abstract class UI {
 		System.out.println("4 Zakup towary- dostepne tylko dla zalogowanych ");
 		
 		
-		
-		}}
-	
-	
+		}
+	}
 }

@@ -5,7 +5,7 @@ public class Fasada {
 	private Client client;
 	
 	
-ing ip, short port) throws Exception{
+public void connect(String ip, short port) throws Exception{
 		client.connect(ip, port);
 	}
 	public void connectAsAdmin(String ip, short port) throws Exception{
