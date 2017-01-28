@@ -15,7 +15,7 @@ public class FabrykaCzesci {
 	          return null;  }  
 	    	
 	    	 else if(typCzesci.equalsIgnoreCase("podstawowa")) {  
-	               return new PrototypCzesc(); 
+	               return new Czesc(); 
              }   
 	         else if(typCzesci.equalsIgnoreCase("zlozona")){  
 	       this.zbudujKompozycjeObiektow(nazwa);
@@ -49,34 +49,31 @@ public class FabrykaCzesci {
 	  }
 	   public void zbudujZPrototypu(){}
 	   
-		private Map<String, Czesc> czesci = new HashMap<String, Czesc>();
 
-
+	   
+	   
+private Map<String, Czesc> czesci = new HashMap<String, Czesc>();
 public Czesc getCzescPodstawowa(String nazwaCzesci) {
-			Czesci czesc = null;
+			Czesc czesc = null;
 
 			czesc = czesci.get(nazwaCzesci);
 
 			if (czesc == null) {
-				switch (nazwaCzesci) {
-				case 'silnik':
-					 
-		             czesc =new Czesc()//ten obiekt co stworzony terac
-		             break;
-			    case 'wycieraczki':
 				
-		            Item czesc = registry.createBasicItem("wycieraczki")'
-					czesc = czesc z gory 
-		             break;
-		
-		DOJEBANE W PIZDUsS
-		
-				}
+				switch (nazwaCzesci) {
+				case "silnik":
+				czesc =new Czesc();//ten obiekt co stworzony terac
+		        break;
+			  
+				case "wycieraczki":
+			   czesc = czesci.get("silnik").clone();
+		        break;
+		}
 				czesci.put(nazwaCzesci, czesc);
 			}
 
-			return symbol;
+			return czesc;
 		}
 	}
 
-}
+

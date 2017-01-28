@@ -1,6 +1,6 @@
 package server;
 
-public abstract class Czesc{
+public class Czesc{
 private int id;
 private String nazwa;
 private Float cena;
