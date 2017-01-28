@@ -8,6 +8,7 @@ public class FabrykaCzesci {
 	
 	
 	private static final String nazwa = null;
+	private Map<String, Czesc> czesci = new HashMap<String, Czesc>();
 
 	public Czesc getCzesc(String typCzesci){  
 	           
@@ -47,14 +48,12 @@ public class FabrykaCzesci {
 	        ArrayList<KomponentCzesci> components =zawartosc.zwroc();
 		
 	  }
-	   public void zbudujZPrototypu(){}
-	   
 
-	   
-	   
-private Map<String, Czesc> czesci = new HashMap<String, Czesc>();
+	
 public Czesc getCzescPodstawowa(String nazwaCzesci) {
-			Czesc czesc = null;
+	
+	//private Map<String, Czesc> czesci = new HashMap<String, Czesc>();
+	Czesc czesc = null;
 
 			czesc = czesci.get(nazwaCzesci);
 
