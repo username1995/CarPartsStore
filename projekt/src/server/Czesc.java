@@ -1,11 +1,30 @@
 package server;
 
-public abstract class Czesc implements Cloneable{
+public abstract class Czesc{
 private int id;
 private String nazwa;
 private Float cena;
 private int ilosc;
 private String opis;
+
+
+
+public Czesc clone()
+{
+    Czesc sklonowane = null;
+    try
+    {
+        sklonowane = (Czesc) super.clone(); 
+      //  sklonowane.setPrice(price);
+        //sklonowane.setTitle(title);
+    }
+    catch (CloneNotSupportedException e)
+    {
+        e.printStackTrace();
+    }
+    return sklonowane;
+}
+
 public int getId() {
 	return id;
 }
