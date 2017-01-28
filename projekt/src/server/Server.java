@@ -278,11 +278,12 @@ public synchronized void retrieveData(String clientMsg){
  * 
  *pod spodem przykladowy klient
  * Director szef = new Director();
-Builder builder = new ZestawXT001();
-Builder builder2 = new ZestawABC996();
-System.out.println("\nZESTAW1");
+Builder builder = new Faktura();
+Builder builder2 = new Paragon();
+
 szef.setBuilder(builder);
 szef.skladaj();
+
 ZestawKomputerowy zestaw1 = szef.getZestaw();
 szef.setBuilder(builder2);
 szef.skladaj();
