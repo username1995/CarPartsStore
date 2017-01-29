@@ -33,7 +33,9 @@ public class ClientUI {
 			System.out.println("4 Zakup towary- dostepne tylko dla zalogowanych ");
 			System.out.println("9 Wyjscie ");
 			int option= input.nextInt();
-	       
+	       /////////////////
+			///// jak tu odniesc kupienie do zalogowania w zwiazku z tym interfejsem///
+			////////
 	       switch(option){
 		 case 1:
 	      String wynik=fasada.retrievePartsFromDatabase();
@@ -60,11 +62,31 @@ public class ClientUI {
 	           break;
 	         case 3:
 	           System.out.println("Option3");
-	           break;  }
-	         /*case 4:
-	           System.out.println("Option1");
-	           System.out.println("Option2");
-	           System.out.println("Option3");
+	           break;  
+	           case 4:
+	        	   boolean trwaj=true;
+	        	   int wybor1, wybor2,wybor3;
+	        	   String koniec;
+	        	   while(trwaj){
+	        			 System.out.println("Podaj nazwe czesci, ktora chcesz kupic, maksymalnie 3");
+	        		   wybor1=input.nextInt();
+	        		   //tu jeszcze ilosc podac
+	        		   wybor2=input.nextInt();
+	        		   wybor3=input.nextInt();
+	        		   System.out.println("Zakonczono, status czesci bedzie mozna sledzic w koncie uzytkownika");
+	        		   int zakoncz=wybor1+wybor2+wybor3;
+	        		   trwaj=false;
+	        	   }
+	        		   
+	        		   
+	        		   
+	        	   
+		           System.out.println("Option3");
+		           break;  
+	       
+	       
+	       }
+	         
 
 	           break*/
 	         
