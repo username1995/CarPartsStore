@@ -4,16 +4,22 @@ import server.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.ConnectException;
 import java.net.UnknownHostException;
+
+
 
 public class Client {
 	private Socket server;
     private PrintWriter outputWriter;
     private BufferedReader inputBuffer;
     private String username;
+    private ObjectInputStream is;
+	private ObjectOutputStream os;
 
     
     public void dupa(){
@@ -21,7 +27,14 @@ public class Client {
     }
     
     
-    
+    public void testPobieraniaKlienta() throws IOException, ClassNotFoundException{
+		Klient k = new Klient("user", "user");
+		os.writeObject("/pobierz");
+		os.flush();
+		os.writeObject(k);
+		os.flush();
+		System.out.println((String)is.readObject());
+	}
     
     
     public void connect(String ip, short port) throws ConnectException, UnknownHostException, IOException {
@@ -29,8 +42,10 @@ public class Client {
     	server = new Socket(ip, port);
         try {
             
-            inputBuffer = new BufferedReader(new InputStreamReader(server.getInputStream()));
-            outputWriter = new PrintWriter(server.getOutputStream());
+         //   inputBuffer = new BufferedReader(new InputStreamReader(server.getInputStream()));
+            //outputWriter = new PrintWriter(server.getOutputStream());
+    		os = new ObjectOutputStream(server.getOutputStream());
+    		is = new ObjectInputStream(server.getInputStream());
             System.out.println("Polaczono z serwerem");
             
         } catch (IOException e) {

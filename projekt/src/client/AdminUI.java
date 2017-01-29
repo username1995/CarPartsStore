@@ -44,6 +44,7 @@ void edytuj(){
 	System.out.println("3 powrot do menu glównego");
 //uzyc obserwera po edycji, poinformuje klienta ze tam cos zmienila (np za pomoca emaila)
 	}
+
 }
 
 
@@ -115,7 +116,8 @@ void start(Fasada fasada)
        
        }
 	}         
-
+}
+}
          
          
 

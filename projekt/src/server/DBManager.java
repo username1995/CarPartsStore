@@ -1,6 +1,8 @@
 package server;
 
 import client.*;
+
+
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
@@ -28,6 +30,40 @@ public class DBManager {
 		
     db =Database.getInstance().getConnection();;
      System.out.println("Dokonano po³aczenia z baz¹ danych");
+	}
+	
+	
+	
+	
+	public Klient fetchKlient(String login, String haslo){
+		   PreparedStatement ps = null;
+		   ResultSet rs = null;
+		String sql = "SELECT * FROM Klient WHERE login='" + login + "' AND haslo='" + haslo +"';";
+		 
+		try {
+			 ps = db.prepareStatement(sql);
+			rs = ps.executeQuery(sql);
+			if(rs.next()){
+				int id = rs.getInt("id");
+				//String login = rs.getString("login");
+				String imie = rs.getString("imie");
+				String nazwisko = rs.getString("nazwisko");
+				String email = rs.getString("email");
+				String miejscowosc = rs.getString("miejscowosc");
+				String ulica = rs.getString("ulica");
+				String nrMieszkania = rs.getString("nr mieszkania");
+				String telefon = rs.getString("telefon");
+				
+				return new Klient(id, login, haslo, imie, nazwisko,email, miejscowosc,ulica, nrMieszkania,telefon);
+			}else{
+				return null;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+
+			return null;
+		}
 	}
 
    public boolean authenticate(String username, String password) throws SQLException, NoSuchAlgorithmException

@@ -4,6 +4,8 @@ import client.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.SocketException;
@@ -11,8 +13,10 @@ import java.net.SocketException;
 public class Session {
 	private String username;
 	private Socket socket;
-	private PrintWriter outputWriter;
-	private BufferedReader inputBuffer;
+//	private PrintWriter outputWriter;
+	//private BufferedReader inputBuffer;
+	private ObjectInputStream is;
+	private ObjectOutputStream os;
 	
 	/** Ustanawia polaczenie dla podanego socketu
 	 * 
@@ -21,21 +25,22 @@ public class Session {
 	Session(Socket socket) {
             this.socket = socket;
             try {
-                inputBuffer = new BufferedReader(new InputStreamReader(this.socket.getInputStream())); 
-                outputWriter = new PrintWriter(this.socket.getOutputStream(), true);
+          //      inputBuffer = new BufferedReader(new InputStreamReader(this.socket.getInputStream())); 
+             //   outputWriter = new PrintWriter(this.socket.getOutputStream(), true);
+            	os = new ObjectOutputStream(socket.getOutputStream());
+    			is = new ObjectInputStream(socket.getInputStream());
             } catch(IOException e) {
                 System.err.println(e);
                 e.printStackTrace();
             }
 	}
-	
-	/** pisaneie dza pomoca socketuu*/
+/*	
+
 	public void write(String msg) {
             outputWriter.println(msg);
             outputWriter.flush();
 	}
-	
-	/** Czytanjie za pomoca socketu. */
+
 	public String read() {
             String line = "";
             try {
@@ -51,7 +56,7 @@ public class Session {
             return line;
 	}
 	
-	/** Konczy polaczenia/rozlacza sie. */
+
 	public boolean disconnect() {
             try {
                 socket.close();
@@ -64,7 +69,7 @@ public class Session {
             outputWriter.close();
             return true;
 	}
-	
+	*/
 	
 	public Socket getSocket() { return socket; }
 	

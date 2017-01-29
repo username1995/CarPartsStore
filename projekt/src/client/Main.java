@@ -24,7 +24,8 @@ if(s=="1"){
 	try {
 		  System.out.println("przed");
 		         fasada.connectAsAdmin("127.0.0.1", (short) 1337); 
-		        fasada.wyswietl(true);
+
+		         fasada.wyswietl(true);
 		        } catch(ConnectException e) {
 		System.exit(-1);
 		            return;
@@ -42,6 +43,7 @@ if(s=="1"){
 }else{
         try {
          fasada.connect("127.0.0.1", (short) 1337); 
+         client.testPobieraniaKlienta();   
          fasada.wyswietl(false);
         } catch(ConnectException e) {
 System.exit(-1);

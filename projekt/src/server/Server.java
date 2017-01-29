@@ -1,6 +1,12 @@
 package server;
 import java.net.*;
+import java.util.ArrayList;
+
+
+
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 
 public class Server {
 
@@ -23,11 +29,7 @@ public class Server {
 public void run(String[] args) throws IOException {
 		
 	     System.out.println("Serwer uruchoomiony, oczekiwanie na po³¹czenia");
-		String dbUser = "root";
-		String dbPass = "";
-		
-		//String dbAddress = "jdbc:mysql://localhost:3306/sklep";
-		db = new DBManager();		
+	     db = new DBManager();		
 		
 		while (true) {
 		Socket client = listener.accept();
@@ -35,13 +37,10 @@ public void run(String[] args) throws IOException {
 	}
 		
 	}
-	
-
-	public static void main(String args[]) {
+		public static void main(String args[]) {
 		
 		final short PORT = 1337;
 		Server server = new Server(PORT);
-		
 		try {
 			server.run(args);
 		} catch (IOException e) {
@@ -55,46 +54,74 @@ public void run(String[] args) throws IOException {
 class ClientHandler implements Runnable {
 	private Session client;
 	private DBManager db;
-	
+	private ObjectInputStream is;
+	private ObjectOutputStream os;
+	private Socket socket;
 	
 	ClientHandler(Socket socket, DBManager database) {
+		System.out.println("Jestem tu,czy nie?");
 		client = new Session(socket);
-		
+		/*this.socket=socket;
+		try{
+		os = new ObjectOutputStream(socket.getOutputStream());
+		is = new ObjectInputStream(socket.getInputStream());
+		}
+		 catch(IOException e) {
+             System.err.println(e);
+             e.printStackTrace();
+         }*/
 		System.out.println("Klient polaczony, stworzono nowy watek");
 		db = database;
 	}
 
 	public void run() {
-		System.out.println("");
-	
-		String clientMsg = "";
-		boolean accepted = false;
-		do {
-			System.out.println("Jestem tu");
-			clientMsg = client.read();
+		try {
+			String cmd = "";
+			do{
+				
+				
+			is.readObject();
 			
-			
-			if (clientMsg.startsWith("SHOW:")) {
-			
-				System.out.println("Dziala, czy nie, chuj WIE");
-				show();
-			}
-			else if (clientMsg.startsWith("Orders"));{
-				orders();
-			}
-			
-			else
-			{
-				System.out.println("Niespodziewana wiadomosc od klienta lub klient zakonczyl aplikacje " + clientMsg);
-				client.disconnect();
-				return;
-			}
-		} while(!accepted);
-		
+				
+				if(cmd.equals("/rejestracja"))
+				//	register();
+				if(cmd.equals("/logowanie"))
+				//	login();
+				if(cmd.equals("/usuwanie"))
+				//	delete();
+				if(cmd.equals("/szukaj"))
+				//	search();
+				if(cmd.equals("/pobierz"))
+					fetchKlient();
+			}while(cmd.equals("/exit"));
+		} catch (ClassNotFoundException | IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		try {
+			os.close();
+			is.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 	}
 	
 
+	public void fetchKlient() throws IOException, ClassNotFoundException{
+		System.out.println("pobieranie listy dostepnych pojazdow");
+	//	Klient p = (Klient)is.readObject();
+		
+		Klient klient = db.fetchKlient("user","user");
+		os.writeObject(klient);
+		os.flush();
+	}
+	
+	
+	
+	
+	
 	/**
 	 * Tworzy nowego u¿ytkownika (klienta) w bazie danych
 	 * @param clientMsg wiadomosc od klienta zawieraj¹ca zakodowane dane niezbêdne do utworzenia konta.
@@ -113,26 +140,26 @@ class ClientHandler implements Runnable {
 		
          try {
 			
-			if (db.userExists(username)) {
+		/*	if (db.userExists(username)) {
 				client.write("TAKEN");
 			}
 			else {
 				db.createUser(username, password,name,surname,mail);			
 				client.write("USERCREATED");
-			}
+			}*/
 		} catch (Exception e) {
 			System.err.println(e);
 			e.printStackTrace();
 		}
 	}
 	
-	private synchronized void show() {
+/*	private synchronized void show() {
 client.write(db.getData());
-}
+}*/
 	
-	private synchronized void orders() {
+/*	private synchronized void orders() {
 client.write(db.getData());
-}
+}*/
 	
 	
 	
@@ -156,9 +183,9 @@ client.write(db.getData());
 		try {
 			if (db.authenticate(username, password)) {
 				accepted = true;
-		       client.write("ACCEPTED");
+		  //     client.write("ACCEPTED");
 	         }
-			else client.write("nie udalo sie zalogowac");
+		//	else client.write("nie udalo sie zalogowac");
 			
 		} catch (Exception e) {
 			System.err.println(e);
@@ -174,7 +201,7 @@ client.write(db.getData());
 	 */
 private synchronized void disconnect() {
 
-	client.disconnect();
+	//client.disconnect();
 		}	
 
 	/*
@@ -374,14 +401,14 @@ public synchronized boolean update(String clientMsg){
 try {
 			
 			System.out.println("BEDE TU KIEDYS?");
-			if (db.updateData(data,login)) {
+		//	if (db.updateData(data,login)) {
 				
-			  client.write("OK");
+		/*	  client.write("OK");
 	          accepted = true;
 
 			}
 			else client.write("NIE UDALO SIE ZAKTUALIZOWAC DANYCH W BAZIE");
-			
+			*/
 		} catch (Exception e) {
 			System.err.println(e);
 			e.printStackTrace();

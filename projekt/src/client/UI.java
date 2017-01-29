@@ -9,7 +9,7 @@ public abstract class UI {
 	boolean rejestracja(){
 	return true;	//to co powyzej
 	}
-	boolean zalogujSie()
+	//boolean zalogujSie()
 	
 	void zakup(String coKupujesz){
 		//troszke bardziej zaawansowane

@@ -38,7 +38,9 @@ public class ClientUI {
 			////////
 	       switch(option){
 		 case 1:
-	      String wynik=fasada.retrievePartsFromDatabase();
+			 
+			fasada.pobierz("a","a");
+	  /*    String wynik=fasada.retrievePartsFromDatabase();
 	      
 	      
 	      
@@ -56,7 +58,7 @@ public class ClientUI {
 			 System.out.println(cena);
 			 
 			
-	           break;
+	           break*/
 	         case 2:
 	           System.out.println("Option2");
 	           break;
@@ -86,9 +88,9 @@ public class ClientUI {
 	       
 	       
 	       }
-	         
+		}
 
-	           break*/
+
 	         
 
 
@@ -96,5 +98,5 @@ public class ClientUI {
 		
 		
 		}
-	}
+	
 }

@@ -22,7 +22,11 @@ client.login("admin","admin" );
 	client.login(user, pass);
 	}
 	
-
+	public void pobierz(String user, String pass){
+		try{
+		client.testPobieraniaKlienta();}
+		catch (Exception e){}
+		}
 	public void register(String user, String pass){
 //	client.register(user, pass);
 	}
