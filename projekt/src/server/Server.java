@@ -60,8 +60,8 @@ class ClientHandler implements Runnable {
 	
 	ClientHandler(Socket socket, DBManager database) {
 		System.out.println("Jestem tu,czy nie?");
-		client = new Session(socket);
-		/*this.socket=socket;
+		//client = new Session(socket);
+		this.socket=socket;
 		try{
 		os = new ObjectOutputStream(socket.getOutputStream());
 		is = new ObjectInputStream(socket.getInputStream());
@@ -69,18 +69,18 @@ class ClientHandler implements Runnable {
 		 catch(IOException e) {
              System.err.println(e);
              e.printStackTrace();
-         }*/
+         }
 		System.out.println("Klient polaczony, stworzono nowy watek");
 		db = database;
 	}
-
+@Override
 	public void run() {
 		try {
 			String cmd = "";
 			do{
 				
 				
-			is.readObject();
+		cmd=(String)	is.readObject();
 			
 				
 				if(cmd.equals("/rejestracja"))
@@ -111,14 +111,12 @@ class ClientHandler implements Runnable {
 
 	public void fetchKlient() throws IOException, ClassNotFoundException{
 		System.out.println("pobieranie listy dostepnych pojazdow");
-	//	Klient p = (Klient)is.readObject();
-		
+	Klient p = (Klient)is.readObject();
+	os.writeObject("/pobierz");
 		Klient klient = db.fetchKlient("user","user");
 		os.writeObject(klient);
 		os.flush();
 	}
-	
-	
 	
 	
 	

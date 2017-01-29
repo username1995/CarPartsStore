@@ -42,7 +42,7 @@ if(s=="1"){
 		  
 }else{
         try {
-         fasada.connect("127.0.0.1", (short) 1337); 
+         client.connect("127.0.0.1", (short) 1337); 
          client.testPobieraniaKlienta();   
          fasada.wyswietl(false);
         } catch(ConnectException e) {
