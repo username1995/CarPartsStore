@@ -30,6 +30,9 @@ client.login("admin","admin" );
 	public String retrievePartsFromDatabase(){
 		return client.show();
 	}
+	public String retrieveOrdersFromDatabase(){
+		return client.showOrders();
+	}
 		
 	/*public boolean buy()*/
 	

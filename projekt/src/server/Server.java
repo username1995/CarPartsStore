@@ -79,6 +79,9 @@ class ClientHandler implements Runnable {
 				System.out.println("Dziala, czy nie, chuj WIE");
 				show();
 			}
+			else if (clientMsg.startsWith("Orders"));{
+				orders();
+			}
 			
 			else
 			{
@@ -127,7 +130,9 @@ class ClientHandler implements Runnable {
 client.write(db.getData());
 }
 	
-	
+	private synchronized void orders() {
+client.write(db.getData());
+}
 	
 	
 	

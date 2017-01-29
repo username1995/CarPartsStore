@@ -98,7 +98,21 @@ public class Client {
            return response;
     }
  
-    
+    public String showOrders() {
+ 	   outputWriter.println("ORDERS: ");
+        outputWriter.flush();
+        String response="";
+        try {
+            response = inputBuffer.readLine();
+            System.out.println("Response: " + response);
+            }
+        catch(IOException e) {
+            System.err.println(e);
+            e.printStackTrace();
+        }
+        return response;
+ }
+  
   
     
     
