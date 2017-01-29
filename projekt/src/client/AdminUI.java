@@ -1,6 +1,6 @@
 package client;
 
-public class AdmnUI  {
+public class AdminUI  {
 	void przegladajTowary(){
 		//wywolaj poprzed fasade metode pobierajaca dane z bazy
 	}
@@ -45,7 +45,7 @@ void edytuj(){
 }
 
 	
-	void start()
+void start(Fasada fasada)
 	{
 		
 		while(true)

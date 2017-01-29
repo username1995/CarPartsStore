@@ -176,10 +176,10 @@ public class DBManager {
        try {
 //////////////////////////
     	   
-    	   abstrahuje cale jdbc
+    	  // abstrahuje cale jdbc
         	   
     
-               ps = db.prepareStatement("");
+           //    ps = db.prepareStatement("");
        
                ps.setString(2,"dupa");
                ps.setString(4,"cwela");
@@ -209,6 +209,46 @@ public class DBManager {
    PreparedStatement ps = null;
    ResultSet rs =null;;
    String data = "";  
+   
+  
+   
+   try{
+		 ps = db.prepareStatement("SELECT * FROM CZESC"); 
+          rs = ps.executeQuery();
+		if(rs==null){System.out.println("Nie udalo sie pobrac danych z bazy"); }else System.out.println("Udalo sie pobrac dane z bazdy"); 
+		while (rs.next())
+			
+		{data+=rs.getInt("id");
+	 		data+=",";
+	 		data+=rs.getInt("model");
+			data+=",";
+			data+=rs.getString("nazwa");
+			data+=",";
+			data+=rs.getFloat("cena");
+			data+=",";
+			data+=rs.getInt("ilosc");
+			data+=",";
+			data+=rs.getString("opis");
+		}
+	 
+	 		
+	 	}catch (SQLException e){
+			System.err.println(e);
+	        e.printStackTrace();
+		}
+		return data;
+			
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
    
    //tutaj wyciaganie danych z bazy
    

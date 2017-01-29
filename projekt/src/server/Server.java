@@ -1,39 +1,14 @@
 package server;
-
-
 import java.net.*;
 import java.io.IOException;
 
-
-/**
- * Server.java
- * Serwer aplikacji 
- * Objekt tej klasy tworzy "nasluchiwacz" ServerSocket, ktory pozwala serwerowi nasluchiwac przychodzacych polaczen.
- * Jest to serwer wielow¹tkowy
- * @author Dominik Szczerek
- * 
- */
 public class Server {
 
 	private int connections;
-	
-	/** Do nasluchiwania przychodzacych polaczen
-	  */
-	private ServerSocket listener;
-	
-	
-	/** Serwerowy interfejs do bazyy danych MySQL*/
-	private DBManager db;
+    private ServerSocket listener;
+   private DBManager db;
 
-	/** Flag to limit the maximum number of connections */
-	private final int MAX_CONNECTIONS = 0;
-	
 
-	/**
-	 * Tworzy nowy serwer
-	 * 
-	 * @param port Numer portu na ktorym beda nasluchiwane polaczenia
-	 */
 	Server(short port) {
 		connections = 0;
 		try {
@@ -45,41 +20,23 @@ public class Server {
 		}
 	}
 
-	/**
-	 * 
-	 * G³owna metoda serwera, nasluchiwanie na przychodzace polaczenia w petli
-	 * .
-	 */
-	public void run(String[] args) throws IOException {
-		System.out.println("Serwer uruchoomiony, oczekiwanie na po³¹czenia");
+public void run(String[] args) throws IOException {
+		
+	     System.out.println("Serwer uruchoomiony, oczekiwanie na po³¹czenia");
 		String dbUser = "root";
 		String dbPass = "";
 		
+		//String dbAddress = "jdbc:mysql://localhost:3306/sklep";
+		db = new DBManager();		
 		
-		/**Do komunikowanie sie z baza danych */
-		String dbAddress = "jdbc:mysql://localhost:3306/chatdb";
-		db = new DBManager(dbAddress, dbUser, dbPass);		
-		
-		/** naluchiwanie na polaczenia w nieskonczonej petli*/
 		while (true) {
+		Socket client = listener.accept();
+		new Thread(new ClientHandler(client, db)).start();
+	}
 		
-			/** Only accept connections up to the limit specified by the
-			    MAX_CONNECTIONS constant, 0 means no new connection limit */
-			if (++connections < MAX_CONNECTIONS || MAX_CONNECTIONS == 0) {
-				
-				/** Zablokuj nasluchiwanie i stworz*/
-				Socket client = listener.accept();
-				
-				/** Stworz w nowy watku klienta i od tej pory tam klient bedzie obslugiwany,
-				 *  kontynuujemy nasluchiwanie na nowych klientow w watku glownym
-				 */
-				new Thread(new ClientHandler(client, db)).start();
-							
-			}
-		}
 	}
 	
-	/** Glowna metoda ktora powoduje ze serwer zaczyna dzialaac na dancym porcie( w tym przypadku ) */
+
 	public static void main(String args[]) {
 		
 		final short PORT = 1337;
@@ -95,51 +52,32 @@ public class Server {
 	
 }
 
-/** Klasa ClientHandler to fundament serwera. Implementuje interfejs Runnable dzieki ktoremu
- *  mozna stworzyc nowy watek dla kazdego klienta z osobna
- * 
- * @author Dominik Szczerek
- * 
- */
 class ClientHandler implements Runnable {
 	private Session client;
-	
-
-	
-	/** 
-	 *  odniesienie do bazy danych
-	 */
 	private DBManager db;
 	
-	/**
-	 * Do zarzadania kazdym z klientow
-	 * 
-h.    */
+	
 	ClientHandler(Socket socket, DBManager database) {
 		client = new Session(socket);
 		
 		System.out.println("Klient polaczony, stworzono nowy watek");
 		db = database;
 	}
-	
-	/**
-	 * Klasa ClientHandler implementuje interfejs Runnable, jest to metoda run()
-	 * pracuj¹ca we w³asnym, osobnym w¹tku. run() mo¿e wywo³ywaæ
-	*/
+
 	public void run() {
 		System.out.println("");
 	
-		
 		String clientMsg = "";
 		boolean accepted = false;
-		
-	
 		do {
+			System.out.println("Jestem tu");
 			clientMsg = client.read();
 			
 			
-			if (clientMsg.startsWith("LOGIN: ")) {
-				accepted = authenticate(clientMsg);
+			if (clientMsg.startsWith("SHOW:")) {
+			
+				System.out.println("Dziala, czy nie, chuj WIE");
+				show();
 			}
 			
 			else
@@ -186,13 +124,8 @@ h.    */
 	}
 	
 	private synchronized void show() {
-		
-
-			
-	
-			//	client.write(db.getDataFrom(username, password));
-
-	}
+client.write(db.getData());
+}
 	
 	
 	
